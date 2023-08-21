@@ -28,7 +28,8 @@
       "onAutoForward": "silent"
     }
   },
-  "postStartCommand": "bash -c .devcontainer/setup.sh && docker compose build --parallel",
+  "onCreateCommand": "docker compose build --parallel",
+  "postStartCommand": "bash -c .devcontainer/setup.sh",
 
   "settings": {
     "extensions.ignoreRecommendations": true,
