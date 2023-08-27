@@ -28,7 +28,6 @@
       "onAutoForward": "silent"
     }
   },
-  "onCreateCommand": "docker compose build --parallel",
   "postStartCommand": "bash -c .devcontainer/setup.sh",
 
   "settings": {
