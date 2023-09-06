@@ -64,7 +64,7 @@ UserSchema.methods.generateJWT = function() {
       id: this._id,
       username: this.username,
       // exp: parseInt(exp.getTime() / 1000)
-      expiresIn: "1h"
+      expiresIn: "100s"
     },
     secret
   );
