@@ -14,7 +14,7 @@ var auth = {
   required: jwt({
     secret: secret,
     userProperty: 'payload',
-    getToken: getTokenFromHeader
+    getToken: getTokenFromHeader,
   }),
   optional: jwt({
     secret: secret,
