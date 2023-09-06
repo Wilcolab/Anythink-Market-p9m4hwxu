@@ -13,6 +13,8 @@ import Register from "./Register";
 import Settings from "./Settings";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
+
+
 const mapStateToProps = (state) => {
   return {
     appLoaded: state.common.appLoaded,
@@ -32,6 +34,7 @@ const App = (props) => {
   const { redirectTo, onRedirect, onLoad } = props;
   const navigate = useNavigate();
 
+
   useEffect(() => {
     if (redirectTo) {
       navigate(redirectTo);
@@ -39,13 +42,43 @@ const App = (props) => {
     }
   }, [redirectTo, onRedirect, navigate]);
 
+
+  function parseJwt (token) {
+    if(!token?.length ) {
+      
+      return
+    }
+    console.log(token)
+    const parts = token.split(".");
+    const payload = JSON.parse(atob(parts[1]));
+    const expirationTime = payload.exp;
+    const currentTimestamp = Math.floor(Date.now() / 1000);
+    
+    if (currentTimestamp < expirationTime) {
+      console.log("JWT is still valid.");
+  
+    } else {
+      console.log("JWT has expired.");
+      navigate('/login');
+    }
+    }
+
   useEffect(() => {
     const token = window.localStorage.getItem("jwt");
     if (token) {
       agent.setToken(token);
+      
     }
+
+
+
+    
+
     onLoad(token ? agent.Auth.current() : null, token);
   }, [onLoad]);
+
+  
+  parseJwt(window.localStorage.getItem("jwt"))
 
   if (props.appLoaded) {
     return (
